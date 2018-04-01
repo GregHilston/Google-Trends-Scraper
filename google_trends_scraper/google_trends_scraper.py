@@ -70,7 +70,7 @@ class GoogleTrendsScraper:
         fp.set_preference("browser.download.manager.closeWhenDone", False)
 
         # Download the CSV file
-        driver = webdriver.Firefox(fp)
+        driver = webdriver.Firefox(fp, executable_path="google_trends_scraper/geckodriver")
         driver.get(url)
         driver.implicitly_wait(5) # may need to implicitly wait longer on slow connections
         button = driver.find_element_by_class_name('export')
@@ -78,7 +78,7 @@ class GoogleTrendsScraper:
 
         # wait for the file to download
         while not os.path.exists(self.original_output_file_name):
-            print("waiting 1 second for file to be downloaded")
+            print("waiting 1 second, perpetually, for file to be downloaded")
             time.sleep(1)
 
         print(f"about to rename {self.original_output_file_name} to {output_file_name}")
@@ -126,7 +126,7 @@ class GoogleTrendsScraper:
 
         return weeks_str
 
-    def combine_csv_files(self, file_names, output=output_file_name):
+    def combine_csv_files(self, file_names, output=None):
         """Combines all given csv file names, of the same structure, to a single one
 
         :param list file_names: a list of all file names to combine
@@ -134,6 +134,11 @@ class GoogleTrendsScraper:
 
         :return: None
         """
+
+        # How you're supposed to set a default value to a class variable, weird but you can't reference self in the
+        # function definition
+        if output is None:
+            output = self.output_file_name
 
         dfs = []
         for filename in sorted(file_names):
