@@ -4,8 +4,12 @@ import time
 import pandas as pd
 from selenium import webdriver
 
+print(f"before path: {sys.path}")
+
 # Adding geckodriver to our path so whoever imports our library can run correctly
 sys.path.insert(0, "google_trends_scraper")
+
+print(f"after path: {sys.path}")
 
 class GoogleTrendsScraper:
     original_output_file_name = "multiTimeline.csv" # the name of the output CSV file from Google Trends
