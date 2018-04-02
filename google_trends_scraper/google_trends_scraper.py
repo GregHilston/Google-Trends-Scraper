@@ -5,7 +5,7 @@ import pandas as pd
 from selenium import webdriver
 
 # Adding geckodriver to our path so whoever imports our library can run correctly
-sys.path.insert(0, ".")
+sys.path.insert(0, "google_trends_scraper")
 
 class GoogleTrendsScraper:
     original_output_file_name = "multiTimeline.csv" # the name of the output CSV file from Google Trends
